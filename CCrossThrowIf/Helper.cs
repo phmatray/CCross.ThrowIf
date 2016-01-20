@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
 
-namespace CCross.ThrowIf.Core
+namespace CCrossThrowIf
 {
     public static class Helper
     {

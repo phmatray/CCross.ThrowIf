@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NuGet.PackagerVS2015", "NuGet.PackagerVS2015\NuGet.PackagerVS2015.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCrossThrowIf.Demo", "CCrossThrowIf.Demo\CCrossThrowIf.Demo.csproj", "{CBE6D648-C700-4A85-8883-DB6FADAAB468}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCrossThrowIf", "CCrossThrowIf\CCrossThrowIf.csproj", "{2744D2A4-C78E-4CE6-9804-E12507F03E58}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBE6D648-C700-4A85-8883-DB6FADAAB468}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBE6D648-C700-4A85-8883-DB6FADAAB468}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBE6D648-C700-4A85-8883-DB6FADAAB468}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBE6D648-C700-4A85-8883-DB6FADAAB468}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2744D2A4-C78E-4CE6-9804-E12507F03E58}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2744D2A4-C78E-4CE6-9804-E12507F03E58}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2744D2A4-C78E-4CE6-9804-E12507F03E58}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2744D2A4-C78E-4CE6-9804-E12507F03E58}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

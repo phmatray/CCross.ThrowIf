@@ -1,32 +1,33 @@
 <?xml version="1.0"?>
 <package >
   <metadata>
-    <id>ThrowIf</id>
-    <version>1.0.0</version>
-    <title>ThrowIf</title>
+    <id>CCross.ThrowIf</id>
+    <version>0.0.8</version>
+    <title>ThrowIf Helper</title>
     <authors>Philippe Matray (CCross)</authors>
     <owners>Philippe Matray (CCross)</owners>
     <description>
-      A long description of the package. This shows up in the right pane of the Add Package Dialog as well as in the Package Manager Console when listing packages using the Get-Package command.
+      Throw your exceptions easily.
     </description>
     <releaseNotes>
+      Add exceptions for long and decimal.
     </releaseNotes>
     <summary>
-      A short description of the package. If specified, this shows up in the middle pane of the Add Package Dialog. If not specified, a truncated version of the description is used instead.
+      Throw your exceptions easily.
     </summary>
     <language>en-US</language>
-    <projectUrl>https://nuget.org/packages/NuGet.PackagerVS2015</projectUrl>
+    <projectUrl>http://phmatray.github.io/CCross.ThrowIf/</projectUrl>
     <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
-    <copyright>Copyright  2016</copyright>
+    <copyright>Copyright CCross 2016</copyright>
     <dependencies>
-        <group targetFramework="net40">
+        <!--<group targetFramework="net40">
           <dependency id="log4net" version="1.2.10" />
-        </group>
+        </group>-->
     </dependencies>
     <references></references>
-    <tags></tags>
+    <tags>ThrowIF CCross Exception Helper Portable</tags>
   </metadata>
   <files>
     <file src="lib\" target="lib" />
