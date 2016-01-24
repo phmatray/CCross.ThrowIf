@@ -7,47 +7,6 @@ namespace CCrossThrowIf
     {
         public static class Argument
         {
-            #region Generic
-
-            /// <summary>
-            ///     Throws whether the value is equal to its default value.
-            /// </summary>
-            /// <typeparam name="T">A class type.</typeparam>
-            /// <param name="expression">The expression property.</param>
-            /// <param name="message">The message.</param>
-            public static void IsDefault<T>(Expression<Func<T>> expression, string message = null)
-                where T : class
-            {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value == default(T))
-                    throw new ArgumentException(message ?? $"{name} is equal to its default value.");
-            }
-
-            #endregion
-
-            #region Object
-
-            /// <summary>
-            /// </summary>
-            /// <param name="expression"></param>
-            /// <param name="message"></param>
-            public static void IsNull(Expression<Func<object>> expression, string message = null)
-            {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value == null)
-                {
-                    throw message != null
-                        ? new ArgumentNullException(name, message)
-                        : new ArgumentNullException(name);
-                }
-            }
-
-            #endregion
-
             #region String
 
             /// <summary>
@@ -212,6 +171,34 @@ namespace CCrossThrowIf
                 IntBase(condition, name, message);
             }
 
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="limit"></param>
+            /// <param name="message"></param>
+            public static void IsGreaterThan(Expression<Func<int>> expression, int limit = 0, string message = null)
+            {
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+
+                if (value > limit)
+                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is greater than {limit}");
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="limit"></param>
+            /// <param name="message"></param>
+            public static void IsLowerThan(Expression<Func<int>> expression, int limit = 0, string message = null)
+            {
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+
+                if (value < limit)
+                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is lower than {limit}");
+            }
+
             private static void IntBase(bool condition, string name, string message)
             {
                 if (condition)
@@ -278,7 +265,223 @@ namespace CCrossThrowIf
                 LongBase(condition, name, message);
             }
 
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="limit"></param>
+            /// <param name="message"></param>
+            public static void IsGreaterThan(Expression<Func<long>> expression, long limit = 0L, string message = null)
+            {
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+
+                if (value > limit)
+                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is greater than {limit}");
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="limit"></param>
+            /// <param name="message"></param>
+            public static void IsLowerThan(Expression<Func<long>> expression, long limit = 0L, string message = null)
+            {
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+
+                if (value < limit)
+                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is lower than {limit}");
+            }
+
             private static void LongBase(bool condition, string name, string message)
+            {
+                if (condition)
+                {
+                    throw message != null
+                        ? new ArgumentOutOfRangeException(name, message)
+                        : new ArgumentOutOfRangeException(name);
+                }
+            }
+
+            #endregion
+
+            #region Float
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="message"></param>
+            public static void IsPositive(Expression<Func<float>> expression, string message = null)
+            {
+                // Wrapper FloatBase
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+                var condition = value > 0F;
+                FloatBase(condition, name, message);
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="message"></param>
+            public static void IsNegative(Expression<Func<float>> expression, string message = null)
+            {
+                // Wrapper FloatBase
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+                var condition = value < 0F;
+                FloatBase(condition, name, message);
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="message"></param>
+            public static void IsPositiveOrZero(Expression<Func<float>> expression, string message = null)
+            {
+                // Wrapper FloatBase
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+                var condition = value >= 0F;
+                FloatBase(condition, name, message);
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="message"></param>
+            public static void IsNegativeOrZero(Expression<Func<float>> expression, string message = null)
+            {
+                // Wrapper FloatBase
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+                var condition = value <= 0F;
+                FloatBase(condition, name, message);
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="limit"></param>
+            /// <param name="message"></param>
+            public static void IsGreaterThan(Expression<Func<float>> expression, float limit = 0F, string message = null)
+            {
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+
+                if (value > limit)
+                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is greater than {limit}");
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="limit"></param>
+            /// <param name="message"></param>
+            public static void IsLowerThan(Expression<Func<float>> expression, float limit = 0F, string message = null)
+            {
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+
+                if (value < limit)
+                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is lower than {limit}");
+            }
+
+            private static void FloatBase(bool condition, string name, string message)
+            {
+                if (condition)
+                {
+                    throw message != null
+                        ? new ArgumentOutOfRangeException(name, message)
+                        : new ArgumentOutOfRangeException(name);
+                }
+            }
+
+            #endregion
+
+            #region Double
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="message"></param>
+            public static void IsPositive(Expression<Func<double>> expression, string message = null)
+            {
+                // Wrapper DoubleBase
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+                var condition = value > 0D;
+                DoubleBase(condition, name, message);
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="message"></param>
+            public static void IsNegative(Expression<Func<double>> expression, string message = null)
+            {
+                // Wrapper DoubleBase
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+                var condition = value < 0D;
+                DoubleBase(condition, name, message);
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="message"></param>
+            public static void IsPositiveOrZero(Expression<Func<double>> expression, string message = null)
+            {
+                // Wrapper DoubleBase
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+                var condition = value >= 0D;
+                DoubleBase(condition, name, message);
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="message"></param>
+            public static void IsNegativeOrZero(Expression<Func<double>> expression, string message = null)
+            {
+                // Wrapper DoubleBase
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+                var condition = value <= 0D;
+                DoubleBase(condition, name, message);
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="limit"></param>
+            /// <param name="message"></param>
+            public static void IsGreaterThan(Expression<Func<double>> expression, double limit = 0D, string message = null)
+            {
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+
+                if (value > limit)
+                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is greater than {limit}");
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="limit"></param>
+            /// <param name="message"></param>
+            public static void IsLowerThan(Expression<Func<double>> expression, double limit = 0D, string message = null)
+            {
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+
+                if (value < limit)
+                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is lower than {limit}");
+            }
+
+            private static void DoubleBase(bool condition, string name, string message)
             {
                 if (condition)
                 {
@@ -344,6 +547,34 @@ namespace CCrossThrowIf
                 DecimalBase(condition, name, message);
             }
 
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="limit"></param>
+            /// <param name="message"></param>
+            public static void IsGreaterThan(Expression<Func<decimal>> expression, decimal limit = 0m, string message = null)
+            {
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+
+                if (value > limit)
+                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is greater than {limit}");
+            }
+
+            /// <summary>
+            /// </summary>
+            /// <param name="expression"></param>
+            /// <param name="limit"></param>
+            /// <param name="message"></param>
+            public static void IsLowerThan(Expression<Func<decimal>> expression, decimal limit = 0m, string message = null)
+            {
+                var name = expression.GetMemberName();
+                var value = expression.GetValue();
+
+                if (value < limit)
+                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is lower than {limit}");
+            }
+
             private static void DecimalBase(bool condition, string name, string message)
             {
                 if (condition)
@@ -355,10 +586,129 @@ namespace CCrossThrowIf
             }
 
             #endregion
+
+            #region Generic
+
+            /// <summary>
+            ///     Throws whether the value is equal to its default value.
+            /// </summary>
+            /// <typeparam name="T">A class type.</typeparam>
+            /// <param name="expression">The expression property.</param>
+            /// <param name="message">The message.</param>
+            public static void IsDefault<T>(Expression<Func<T>> expression, string message = null)
+                where T : class
+            {
+                ThrowIf<ArgumentException>
+                    .IsDefault(expression, message);
+            }
+
+            /// <summary>
+            ///     Throws whether the value is null.
+            /// </summary>
+            /// <typeparam name="T">A class type.</typeparam>
+            /// <param name="expression">The expression property.</param>
+            /// <param name="message">The message.</param>
+            public static void IsNull<T>(Expression<Func<T>> expression, string message = null)
+                where T : class
+            {
+                ThrowIf<ArgumentException>
+                    .IsNull(expression, message);
+            }
+
+            /// <summary>
+            ///     Throws whether the value is equal to an other specified value.
+            /// </summary>
+            /// <typeparam name="T"></typeparam>
+            /// <param name="expression">The expression property.</param>
+            /// <param name="testValue">The specified value.</param>
+            /// <param name="message">The message.</param>
+            public static void IsEqualTo<T>(Expression<Func<T>> expression, T testValue = default(T), string message = null)
+            {
+                ThrowIf<ArgumentOutOfRangeException>
+                    .IsEqualTo(expression, testValue, message);
+            }
+
+            #endregion
         }
 
         //public static class Collection { }
         //public static class Value { }
         //public static class ArrayIndex { }
+    }
+
+    public static class ThrowIf<TException>
+        where TException : Exception, new()
+    {
+        /// <summary>
+        ///     Throws whether the value is equal to its default value.
+        /// </summary>
+        /// <typeparam name="T">A class type.</typeparam>
+        /// <param name="expression">The expression property.</param>
+        /// <param name="message">The message.</param>
+        public static void IsDefault<T>(Expression<Func<T>> expression, string message = null)
+            where T : class
+        {
+            var name = expression.GetMemberName();
+            var value = expression.GetValue();
+
+            if (message == null)
+                message = $"{name} is equal to its default value.";
+
+            if (value == null)
+            {
+                var args = new object[] { message };
+                var instance = (TException)Activator.CreateInstance(typeof(TException), args);
+                throw instance;
+            }
+        }
+
+        /// <summary>
+        ///     Throws whether the value is null.
+        /// </summary>
+        /// <typeparam name="T">A class type.</typeparam>
+        /// <param name="expression">The expression property.</param>
+        /// <param name="message">The message.</param>
+        public static void IsNull<T>(Expression<Func<T>> expression, string message = null)
+            where T : class
+        {
+            var name = expression.GetMemberName();
+            var value = expression.GetValue();
+
+            if (message == null)
+                message = $"{name} is null.";
+
+            if (value == null)
+            {
+                var args = new object[] {message};
+                var instance = (TException) Activator.CreateInstance(typeof (TException), args);
+                throw instance;
+            }
+        }
+
+        /// <summary>
+        ///     Throws whether the value is equal to an other specified value.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="expression">The expression property.</param>
+        /// <param name="testValue">The specified value.</param>
+        /// <param name="message">The message.</param>
+        public static void IsEqualTo<T>(Expression<Func<T>> expression, T testValue = default(T), string message = null)
+        {
+            var name = expression.GetMemberName();
+            var value = expression.GetValue();
+
+            if (message == null)
+                message = $"{name} is not equal to {testValue}";
+
+            if (value.Equals(testValue))
+            {
+                var args = typeof(TException) == typeof(ArgumentOutOfRangeException)
+                    ? new object[] { name, value, message}
+                    : new object[] { message };
+
+                var instance = (TException)Activator.CreateInstance(typeof(TException), args);
+                throw instance;
+            }
+        }
     }
 }

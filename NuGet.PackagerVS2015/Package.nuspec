@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CCross.ThrowIf</id>
-    <version>0.0.8</version>
+    <version>0.0.11</version>
     <title>ThrowIf Helper</title>
     <authors>Philippe Matray (CCross)</authors>
     <owners>Philippe Matray (CCross)</owners>
@@ -10,7 +10,8 @@
       Throw your exceptions easily.
     </description>
     <releaseNotes>
-      Add exceptions for long and decimal.
+      Add argument exceptions for float and double.
+      Add generic exception for isDefault and isEqual.
     </releaseNotes>
     <summary>
       Throw your exceptions easily.

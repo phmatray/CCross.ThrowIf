@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace CCrossThrowIf
 {
-    public static class Helper
+    internal static class Helper
     {
         internal static string GetMemberName<T>(this Expression<Func<T>> expression)
         {
