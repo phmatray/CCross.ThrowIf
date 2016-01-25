@@ -11,6 +11,8 @@ namespace CCrossThrowIf.Demo
     {
         static void Main(string[] args)
         {
+            double d = default(double);
+            decimal dec = default(decimal);
             WithThrowIt(11);
 
             Console.ReadLine();

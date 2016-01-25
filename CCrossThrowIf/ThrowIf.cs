@@ -16,15 +16,19 @@ namespace CCrossThrowIf
             /// <param name="message">The message.</param>
             public static void IsNullOrWhiteSpace(Expression<Func<string>> expression, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
+                ThrowIf<ArgumentNullException>
+                    .IsNullOrWhiteSpace(expression, message);
+            }
 
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw message != null
-                        ? new ArgumentNullException(name, message)
-                        : new ArgumentNullException(name);
-                }
+            /// <summary>
+            ///     Throws whether a specified string is null or an Empty string.
+            /// </summary>
+            /// <param name="expression">The expression property.</param>
+            /// <param name="message">The message.</param>
+            public static void IsNullOrEmpty(Expression<Func<string>> expression, string message = null)
+            {
+                ThrowIf<ArgumentNullException>
+                    .IsNullOrEmpty(expression, message);
             }
 
             #endregion
@@ -42,11 +46,10 @@ namespace CCrossThrowIf
             /// </exception>
             public static void IsNegativeOrZero(Expression<Func<TimeSpan>> expression, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
+                var metadata = expression.GetMetadata();
 
-                if (value.Ticks <= 0L)
-                    throw new ArgumentOutOfRangeException(message ?? $"{name} is lower or equal to zero.");
+                if (metadata.Value.Ticks <= 0L)
+                    throw new ArgumentOutOfRangeException(message ?? $"{metadata.Name} is lower or equal to zero.");
             }
 
             #endregion
@@ -59,11 +62,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsInThePast(Expression<Func<DateTime>> expression, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value < DateTime.Now)
-                    throw new ArgumentException(message ?? $"{name} is in the past.");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value < DateTime.Now)
+                    throw new ArgumentException(message ?? $"{metadata.Name} is in the past.");
             }
 
             /// <summary>
@@ -72,11 +74,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsInTheFuture(Expression<Func<DateTime>> expression, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
+                var metadata = expression.GetMetadata();
 
-                if (value > DateTime.Now)
-                    throw new ArgumentException(message ?? $"{name} is in the future.");
+                if (metadata.Value > DateTime.Now)
+                    throw new ArgumentException(message ?? $"{metadata.Name} is in the future.");
             }
 
             #endregion
@@ -92,11 +93,10 @@ namespace CCrossThrowIf
             /// </exception>
             public static void IsTrue(Expression<Func<bool>> expression, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value)
-                    throw new ArgumentException(message ?? $"{name} is true.");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value)
+                    throw new ArgumentException(message ?? $"{metadata.Name} is true.");
             }
 
             /// <summary>
@@ -108,11 +108,10 @@ namespace CCrossThrowIf
             /// </exception>
             public static void IsFalse(Expression<Func<bool>> expression, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (!value)
-                    throw new ArgumentException(message ?? $"{name} is false.");
+                var metadata = expression.GetMetadata();
+                
+                if (!metadata.Value)
+                    throw new ArgumentException(message ?? $"{metadata.Name} is false.");
             }
 
             #endregion
@@ -126,10 +125,9 @@ namespace CCrossThrowIf
             public static void IsPositive(Expression<Func<int>> expression, string message = null)
             {
                 // Wrapper IntBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value > 0;
-                IntBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value > 0;
+                IntBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -139,10 +137,9 @@ namespace CCrossThrowIf
             public static void IsNegative(Expression<Func<int>> expression, string message = null)
             {
                 // Wrapper IntBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value < 0;
-                IntBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value < 0;
+                IntBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -152,10 +149,9 @@ namespace CCrossThrowIf
             public static void IsPositiveOrZero(Expression<Func<int>> expression, string message = null)
             {
                 // Wrapper IntBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value >= 0;
-                IntBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value >= 0;
+                IntBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -165,10 +161,9 @@ namespace CCrossThrowIf
             public static void IsNegativeOrZero(Expression<Func<int>> expression, string message = null)
             {
                 // Wrapper IntBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value <= 0;
-                IntBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value <= 0;
+                IntBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -178,11 +173,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsGreaterThan(Expression<Func<int>> expression, int limit = 0, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value > limit)
-                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is greater than {limit}");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value > limit)
+                    throw new ArgumentOutOfRangeException(metadata.Name, metadata.Value, message ?? $"{metadata.Name} is greater than {limit}");
             }
 
             /// <summary>
@@ -192,11 +186,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsLowerThan(Expression<Func<int>> expression, int limit = 0, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value < limit)
-                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is lower than {limit}");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value < limit)
+                    throw new ArgumentOutOfRangeException(metadata.Name, metadata.Value, message ?? $"{metadata.Name} is lower than {limit}");
             }
 
             private static void IntBase(bool condition, string name, string message)
@@ -220,10 +213,9 @@ namespace CCrossThrowIf
             public static void IsPositive(Expression<Func<long>> expression, string message = null)
             {
                 // Wrapper LongBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value > 0L;
-                LongBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value > 0L;
+                LongBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -233,10 +225,9 @@ namespace CCrossThrowIf
             public static void IsNegative(Expression<Func<long>> expression, string message = null)
             {
                 // Wrapper LongBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value < 0L;
-                LongBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value < 0L;
+                LongBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -246,10 +237,9 @@ namespace CCrossThrowIf
             public static void IsPositiveOrZero(Expression<Func<long>> expression, string message = null)
             {
                 // Wrapper LongBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value >= 0L;
-                LongBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value >= 0L;
+                LongBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -259,10 +249,9 @@ namespace CCrossThrowIf
             public static void IsNegativeOrZero(Expression<Func<long>> expression, string message = null)
             {
                 // Wrapper LongBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value <= 0L;
-                LongBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value <= 0L;
+                LongBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -272,11 +261,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsGreaterThan(Expression<Func<long>> expression, long limit = 0L, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value > limit)
-                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is greater than {limit}");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value > limit)
+                    throw new ArgumentOutOfRangeException(metadata.Name, metadata.Value, message ?? $"{metadata.Name} is greater than {limit}");
             }
 
             /// <summary>
@@ -286,11 +274,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsLowerThan(Expression<Func<long>> expression, long limit = 0L, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value < limit)
-                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is lower than {limit}");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value < limit)
+                    throw new ArgumentOutOfRangeException(metadata.Name, metadata.Value, message ?? $"{metadata.Name} is lower than {limit}");
             }
 
             private static void LongBase(bool condition, string name, string message)
@@ -314,10 +301,9 @@ namespace CCrossThrowIf
             public static void IsPositive(Expression<Func<float>> expression, string message = null)
             {
                 // Wrapper FloatBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value > 0F;
-                FloatBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value > 0F;
+                FloatBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -327,10 +313,9 @@ namespace CCrossThrowIf
             public static void IsNegative(Expression<Func<float>> expression, string message = null)
             {
                 // Wrapper FloatBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value < 0F;
-                FloatBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value < 0F;
+                FloatBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -340,10 +325,9 @@ namespace CCrossThrowIf
             public static void IsPositiveOrZero(Expression<Func<float>> expression, string message = null)
             {
                 // Wrapper FloatBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value >= 0F;
-                FloatBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value >= 0F;
+                FloatBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -353,10 +337,9 @@ namespace CCrossThrowIf
             public static void IsNegativeOrZero(Expression<Func<float>> expression, string message = null)
             {
                 // Wrapper FloatBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value <= 0F;
-                FloatBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value <= 0F;
+                FloatBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -366,11 +349,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsGreaterThan(Expression<Func<float>> expression, float limit = 0F, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value > limit)
-                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is greater than {limit}");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value > limit)
+                    throw new ArgumentOutOfRangeException(metadata.Name, metadata.Value, message ?? $"{metadata.Name} is greater than {limit}");
             }
 
             /// <summary>
@@ -380,11 +362,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsLowerThan(Expression<Func<float>> expression, float limit = 0F, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value < limit)
-                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is lower than {limit}");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value < limit)
+                    throw new ArgumentOutOfRangeException(metadata.Name, metadata.Value, message ?? $"{metadata.Name} is lower than {limit}");
             }
 
             private static void FloatBase(bool condition, string name, string message)
@@ -408,10 +389,9 @@ namespace CCrossThrowIf
             public static void IsPositive(Expression<Func<double>> expression, string message = null)
             {
                 // Wrapper DoubleBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value > 0D;
-                DoubleBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value > 0D;
+                DoubleBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -421,10 +401,9 @@ namespace CCrossThrowIf
             public static void IsNegative(Expression<Func<double>> expression, string message = null)
             {
                 // Wrapper DoubleBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value < 0D;
-                DoubleBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value < 0D;
+                DoubleBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -434,10 +413,9 @@ namespace CCrossThrowIf
             public static void IsPositiveOrZero(Expression<Func<double>> expression, string message = null)
             {
                 // Wrapper DoubleBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value >= 0D;
-                DoubleBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value >= 0D;
+                DoubleBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -447,10 +425,9 @@ namespace CCrossThrowIf
             public static void IsNegativeOrZero(Expression<Func<double>> expression, string message = null)
             {
                 // Wrapper DoubleBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value <= 0D;
-                DoubleBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value <= 0D;
+                DoubleBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -460,11 +437,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsGreaterThan(Expression<Func<double>> expression, double limit = 0D, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value > limit)
-                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is greater than {limit}");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value > limit)
+                    throw new ArgumentOutOfRangeException(metadata.Name, metadata.Value, message ?? $"{metadata.Name} is greater than {limit}");
             }
 
             /// <summary>
@@ -474,11 +450,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsLowerThan(Expression<Func<double>> expression, double limit = 0D, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value < limit)
-                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is lower than {limit}");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value < limit)
+                    throw new ArgumentOutOfRangeException(metadata.Name, metadata.Value, message ?? $"{metadata.Name} is lower than {limit}");
             }
 
             private static void DoubleBase(bool condition, string name, string message)
@@ -502,10 +477,9 @@ namespace CCrossThrowIf
             public static void IsPositive(Expression<Func<decimal>> expression, string message = null)
             {
                 // Wrapper DecimalBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value > 0m;
-                DecimalBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value > 0m;
+                DecimalBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -515,10 +489,9 @@ namespace CCrossThrowIf
             public static void IsNegative(Expression<Func<decimal>> expression, string message = null)
             {
                 // Wrapper DecimalBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value < 0m;
-                DecimalBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value < 0m;
+                DecimalBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -528,10 +501,9 @@ namespace CCrossThrowIf
             public static void IsPositiveOrZero(Expression<Func<decimal>> expression, string message = null)
             {
                 // Wrapper DecimalBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value >= 0m;
-                DecimalBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value >= 0m;
+                DecimalBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -541,10 +513,9 @@ namespace CCrossThrowIf
             public static void IsNegativeOrZero(Expression<Func<decimal>> expression, string message = null)
             {
                 // Wrapper DecimalBase
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-                var condition = value <= 0m;
-                DecimalBase(condition, name, message);
+                var metadata = expression.GetMetadata();
+                var condition = metadata.Value <= 0m;
+                DecimalBase(condition, metadata.Name, message);
             }
 
             /// <summary>
@@ -554,11 +525,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsGreaterThan(Expression<Func<decimal>> expression, decimal limit = 0m, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value > limit)
-                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is greater than {limit}");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value > limit)
+                    throw new ArgumentOutOfRangeException(metadata.Name, metadata.Value, message ?? $"{metadata.Name} is greater than {limit}");
             }
 
             /// <summary>
@@ -568,11 +538,10 @@ namespace CCrossThrowIf
             /// <param name="message"></param>
             public static void IsLowerThan(Expression<Func<decimal>> expression, decimal limit = 0m, string message = null)
             {
-                var name = expression.GetMemberName();
-                var value = expression.GetValue();
-
-                if (value < limit)
-                    throw new ArgumentOutOfRangeException(name, value, message ?? $"{name} is lower than {limit}");
+                var metadata = expression.GetMetadata();
+                
+                if (metadata.Value < limit)
+                    throw new ArgumentOutOfRangeException(metadata.Name, metadata.Value, message ?? $"{metadata.Name} is lower than {limit}");
             }
 
             private static void DecimalBase(bool condition, string name, string message)
@@ -634,81 +603,5 @@ namespace CCrossThrowIf
         //public static class Collection { }
         //public static class Value { }
         //public static class ArrayIndex { }
-    }
-
-    public static class ThrowIf<TException>
-        where TException : Exception, new()
-    {
-        /// <summary>
-        ///     Throws whether the value is equal to its default value.
-        /// </summary>
-        /// <typeparam name="T">A class type.</typeparam>
-        /// <param name="expression">The expression property.</param>
-        /// <param name="message">The message.</param>
-        public static void IsDefault<T>(Expression<Func<T>> expression, string message = null)
-            where T : class
-        {
-            var name = expression.GetMemberName();
-            var value = expression.GetValue();
-
-            if (message == null)
-                message = $"{name} is equal to its default value.";
-
-            if (value == null)
-            {
-                var args = new object[] { message };
-                var instance = (TException)Activator.CreateInstance(typeof(TException), args);
-                throw instance;
-            }
-        }
-
-        /// <summary>
-        ///     Throws whether the value is null.
-        /// </summary>
-        /// <typeparam name="T">A class type.</typeparam>
-        /// <param name="expression">The expression property.</param>
-        /// <param name="message">The message.</param>
-        public static void IsNull<T>(Expression<Func<T>> expression, string message = null)
-            where T : class
-        {
-            var name = expression.GetMemberName();
-            var value = expression.GetValue();
-
-            if (message == null)
-                message = $"{name} is null.";
-
-            if (value == null)
-            {
-                var args = new object[] {message};
-                var instance = (TException) Activator.CreateInstance(typeof (TException), args);
-                throw instance;
-            }
-        }
-
-        /// <summary>
-        ///     Throws whether the value is equal to an other specified value.
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="expression">The expression property.</param>
-        /// <param name="testValue">The specified value.</param>
-        /// <param name="message">The message.</param>
-        public static void IsEqualTo<T>(Expression<Func<T>> expression, T testValue = default(T), string message = null)
-        {
-            var name = expression.GetMemberName();
-            var value = expression.GetValue();
-
-            if (message == null)
-                message = $"{name} is not equal to {testValue}";
-
-            if (value.Equals(testValue))
-            {
-                var args = typeof(TException) == typeof(ArgumentOutOfRangeException)
-                    ? new object[] { name, value, message}
-                    : new object[] { message };
-
-                var instance = (TException)Activator.CreateInstance(typeof(TException), args);
-                throw instance;
-            }
-        }
     }
 }
