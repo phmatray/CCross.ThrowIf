@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace CCrossThrowIf
 {
-    public static class ThrowIf
+    public static partial class ThrowIf
     {
         public static class Argument
         {
@@ -48,8 +48,11 @@ namespace CCrossThrowIf
             {
                 var metadata = expression.GetMetadata();
 
+                if (message == null)
+                    message = $"{metadata.Name} is lower or equal to zero.";
+
                 if (metadata.Value.Ticks <= 0L)
-                    throw new ArgumentOutOfRangeException(message ?? $"{metadata.Name} is lower or equal to zero.");
+                    throw new ArgumentOutOfRangeException(message);
             }
 
             #endregion
@@ -599,9 +602,29 @@ namespace CCrossThrowIf
 
             #endregion
         }
+    }
 
-        //public static class Collection { }
-        //public static class Value { }
-        //public static class ArrayIndex { }
+    public static partial class ThrowIf
+    {
+        public static class Collection
+        {
+            
+        }
+    }
+
+    public static partial class ThrowIf
+    {
+        public static class Value
+        {
+            
+        }
+    }
+
+    public static partial class ThrowIf
+    {
+        public static class ArrayIndex
+        {
+            
+        }
     }
 }

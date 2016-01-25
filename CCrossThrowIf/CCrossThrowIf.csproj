@@ -38,7 +38,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Metadata.cs" />
-    <Compile Include="MetadataHelper.cs" />
+    <Compile Include="Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ThrowIf.cs" />
     <Compile Include="ThrowIfGeneric.cs" />
