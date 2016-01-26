@@ -11,6 +11,7 @@ namespace CCrossThrowIf.Demo
     {
         static void Main(string[] args)
         {
+            Test<ArgumentNullException>();
             double d = default(double);
             decimal dec = default(decimal);
             WithThrowIt(11);
@@ -44,6 +45,24 @@ namespace CCrossThrowIf.Demo
 
             if (value > 5)
                 throw new ArgumentOutOfRangeException(nameof(value));
+        }
+
+        public static void Test<TException>()
+        {
+            switch (typeof(TException).Name)
+            {
+                case nameof(ArgumentNullException):
+                    Console.WriteLine("ca fonctionne");
+                    break;
+                default:
+                    Console.WriteLine("oh rage, oh désespoir");
+                    break;
+            }
+
+            //var e1 = new ArgumentNullException(paramName, message);
+            //var e2 = new Exception(message);
+            //var e3 = new ArgumentException(message, paramName);
+            //var e4 = new ArgumentOutOfRangeException(paramName, actualValue, message);
         }
     }
 

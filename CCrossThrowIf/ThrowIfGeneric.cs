@@ -16,14 +16,11 @@ namespace CCrossThrowIf
         public static void IsNullOrWhiteSpace(Expression<Func<string>> expression, string message = null)
         {
             var metadata = expression.GetMetadata();
-            if (string.IsNullOrWhiteSpace(metadata.Value))
-            {
-                var args = typeof (TException) == typeof (ArgumentNullException) && message != null
-                    ? new object[] {metadata.Name, message}
-                    : new object[] {metadata.Name};
+            if (!string.IsNullOrWhiteSpace(metadata.Value))
+                return;
 
-                throw Helper.CreateException<TException>(args);
-            }
+            throw Helper.CreateException<TException>(
+                message, metadata.Name);
         }
 
         /// <summary>
@@ -34,14 +31,11 @@ namespace CCrossThrowIf
         public static void IsNullOrEmpty(Expression<Func<string>> expression, string message = null)
         {
             var metadata = expression.GetMetadata();
-            if (string.IsNullOrEmpty(metadata.Value))
-            {
-                var args = typeof (TException) == typeof (ArgumentNullException) && message != null
-                    ? new object[] {metadata.Name, message}
-                    : new object[] {metadata.Name};
+            if (!string.IsNullOrEmpty(metadata.Value))
+                return;
                 
-                throw Helper.CreateException<TException>(args);
-            }
+            throw Helper.CreateException<TException>(
+                message, metadata.Name);
         }
 
         #endregion
@@ -60,14 +54,11 @@ namespace CCrossThrowIf
         public static void IsNegativeOrZero(Expression<Func<TimeSpan>> expression, string message = null)
         {
             var metadata = expression.GetMetadata();
-            if (metadata.Value.Ticks <= 0L)
-            {
-                if (message == null)
-                    message = $"{metadata.Name} is lower or equal to zero.";
+            if (metadata.Value.Ticks > 0L)
+                return;
 
-                var args = new object[] {message};
-                throw Helper.CreateException<TException>(args);
-            }
+            throw Helper.CreateException<TException>(
+                message ?? $"{metadata.Name} is lower or equal to zero.");
         }
 
         #endregion
@@ -84,14 +75,11 @@ namespace CCrossThrowIf
             where T : class
         {
             var metadata = expression.GetMetadata();
-            if (metadata.Value == null)
-            {
-                if (message == null)
-                    message = $"{metadata.Name} is equal to its default value.";
+            if (metadata.Value != null)
+                return;
 
-                var args = new object[] {message};
-                throw Helper.CreateException<TException>(args);
-            }
+            throw Helper.CreateException<TException>(
+                message ?? $"{metadata.Name} is equal to its default value.");
         }
 
         /// <summary>
@@ -104,14 +92,11 @@ namespace CCrossThrowIf
             where T : class
         {
             var metadata = expression.GetMetadata();
-            if (metadata.Value == null)
-            {
-                if (message == null)
-                    message = $"{metadata.Name} is null.";
+            if (metadata.Value != null)
+                return;
 
-                var args = new object[] {message};
-                throw Helper.CreateException<TException>(args);
-            }
+            throw Helper.CreateException<TException>(
+                message ?? $"{metadata.Name} is null.");
         }
 
         /// <summary>
@@ -119,22 +104,17 @@ namespace CCrossThrowIf
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="expression">The expression property.</param>
-        /// <param name="testValue">The specified value.</param>
+        /// <param name="checkedValue">The specified value.</param>
         /// <param name="message">The message.</param>
-        public static void IsEqualTo<T>(Expression<Func<T>> expression, T testValue = default(T), string message = null)
+        public static void IsEqualTo<T>(Expression<Func<T>> expression, T checkedValue = default(T), string message = null)
         {
             var metadata = expression.GetMetadata();
-            if (metadata.Value.Equals(testValue))
-            {
-                if (message == null)
-                    message = $"{metadata.Name} is not equal to {testValue}";
+            if (!metadata.Value.Equals(checkedValue))
+                return;
 
-                var args = typeof (TException) == typeof (ArgumentOutOfRangeException)
-                    ? new object[] {metadata.Name, metadata.Value, message}
-                    : new object[] {message};
-
-                throw Helper.CreateException<TException>(args);
-            }
+            throw Helper.CreateException<TException>(
+                message ?? $"{metadata.Name} is not equal to {checkedValue}",
+                metadata.Name, checkedValue);
         }
 
         #endregion
