@@ -1,0 +1,4 @@
+C:\Repo\CCross.ThrowIf\CCrossThrowIf\bin\Release\CCrossThrowIf.dll
+C:\Repo\CCross.ThrowIf\CCrossThrowIf\bin\Release\CCrossThrowIf.pdb
+C:\Repo\CCross.ThrowIf\CCrossThrowIf\obj\Release\CCrossThrowIf.dll
+C:\Repo\CCross.ThrowIf\CCrossThrowIf\obj\Release\CCrossThrowIf.pdb

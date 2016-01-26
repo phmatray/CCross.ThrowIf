@@ -1,0 +1,5 @@
+C:\Repo\CCross.ThrowIf\NuGet.PackagerVS2015\bin\Release\NuGet.PackagerVS2015.dll
+C:\Repo\CCross.ThrowIf\NuGet.PackagerVS2015\bin\Release\NuGet.PackagerVS2015.pdb
+C:\Repo\CCross.ThrowIf\NuGet.PackagerVS2015\obj\Release\NuGet.PackagerVS2015.dll
+C:\Repo\CCross.ThrowIf\NuGet.PackagerVS2015\obj\Release\NuGet.PackagerVS2015.pdb
+C:\Repo\CCross.ThrowIf\NuGet.PackagerVS2015\obj\Release\NuGet.PackagerVS2015.csprojResolveAssemblyReference.cache

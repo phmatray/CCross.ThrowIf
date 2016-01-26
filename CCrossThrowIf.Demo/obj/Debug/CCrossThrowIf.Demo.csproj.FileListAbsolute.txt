@@ -1,0 +1,8 @@
+C:\Repo\CCross.ThrowIf\CCrossThrowIf.Demo\bin\Debug\CCrossThrowIf.Demo.exe.config
+C:\Repo\CCross.ThrowIf\CCrossThrowIf.Demo\bin\Debug\CCrossThrowIf.Demo.exe
+C:\Repo\CCross.ThrowIf\CCrossThrowIf.Demo\bin\Debug\CCrossThrowIf.Demo.pdb
+C:\Repo\CCross.ThrowIf\CCrossThrowIf.Demo\obj\Debug\CCrossThrowIf.Demo.csprojResolveAssemblyReference.cache
+C:\Repo\CCross.ThrowIf\CCrossThrowIf.Demo\obj\Debug\CCrossThrowIf.Demo.exe
+C:\Repo\CCross.ThrowIf\CCrossThrowIf.Demo\obj\Debug\CCrossThrowIf.Demo.pdb
+C:\Repo\CCross.ThrowIf\CCrossThrowIf.Demo\bin\Debug\CCrossThrowIf.dll
+C:\Repo\CCross.ThrowIf\CCrossThrowIf.Demo\bin\Debug\CCrossThrowIf.pdb

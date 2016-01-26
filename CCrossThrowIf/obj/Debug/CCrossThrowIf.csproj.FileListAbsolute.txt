@@ -1,0 +1,5 @@
+C:\Repo\CCross.ThrowIf\CCrossThrowIf\bin\Debug\CCrossThrowIf.dll
+C:\Repo\CCross.ThrowIf\CCrossThrowIf\bin\Debug\CCrossThrowIf.pdb
+C:\Repo\CCross.ThrowIf\CCrossThrowIf\obj\Debug\CCrossThrowIf.dll
+C:\Repo\CCross.ThrowIf\CCrossThrowIf\obj\Debug\CCrossThrowIf.pdb
+C:\Repo\CCross.ThrowIf\CCrossThrowIf\obj\Debug\CCrossThrowIf.csprojResolveAssemblyReference.cache
