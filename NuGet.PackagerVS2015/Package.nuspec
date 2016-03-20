@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>CCross.ThrowIf</id>
-    <version>0.0.11</version>
+    <version>0.0.12</version>
     <title>ThrowIf Helper</title>
     <authors>Philippe Matray (CCross)</authors>
     <owners>Philippe Matray (CCross)</owners>
@@ -10,15 +10,14 @@
       Throw your exceptions easily.
     </description>
     <releaseNotes>
-      Add argument exceptions for float and double.
-      Add generic exception for isDefault and isEqual.
+      Minor fixes
     </releaseNotes>
     <summary>
       Throw your exceptions easily.
     </summary>
     <language>en-US</language>
     <projectUrl>http://phmatray.github.io/CCross.ThrowIf/</projectUrl>
-    <iconUrl>https://nuget.org/Content/Images/packageDefaultIcon-50x50.png</iconUrl>
+    <iconUrl>http://image.noelshack.com/fichiers/2016/04/1453923739-crossmonkeytransp-64.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>http://opensource.org/licenses/Apache-2.0</licenseUrl>
     <copyright>Copyright CCross 2016</copyright>
