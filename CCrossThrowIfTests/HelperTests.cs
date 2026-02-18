@@ -10,7 +10,7 @@ public class HelperTests
     [Fact]
     public void GetMetadata_WithValidExpression_ReturnsMetadata()
     {
-        const int testValue = 42;
+        int testValue = 42;
         Expression<Func<int>> expression = () => testValue;
 
         var metadata = expression.GetMetadata();

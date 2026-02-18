@@ -64,6 +64,27 @@ public static partial class Guard
         }
 
         /// <summary>
+        /// Validates three strings are not null or empty
+        /// </summary>
+        public static (string, string, string) NotNullOrEmpty(
+            [NotNull] string? value1,
+            [NotNull] string? value2,
+            [NotNull] string? value3,
+            [CallerArgumentExpression(nameof(value1))] string? param1 = null,
+            [CallerArgumentExpression(nameof(value2))] string? param2 = null,
+            [CallerArgumentExpression(nameof(value3))] string? param3 = null)
+        {
+            if (string.IsNullOrEmpty(value1))
+                throw new ArgumentNullException(param1, $"Value '{param1}' cannot be null or empty");
+            if (string.IsNullOrEmpty(value2))
+                throw new ArgumentNullException(param2, $"Value '{param2}' cannot be null or empty");
+            if (string.IsNullOrEmpty(value3))
+                throw new ArgumentNullException(param3, $"Value '{param3}' cannot be null or empty");
+            
+            return (value1, value2, value3);
+        }
+
+        /// <summary>
         /// Validates all values in a params array
         /// </summary>
         [return: NotNull]

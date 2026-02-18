@@ -46,17 +46,11 @@ namespace CCrossThrowIf.Demo
         static void RunOriginalDemo()
         {
             Test<ArgumentNullException>();
-            double d = default(double);
-            decimal dec = default(decimal);
             WithThrowIt(11);
         }
 
         public static string WithoutThrowIt(string arg)
         {
-            throw new ArgumentOutOfRangeException();
-            throw new ArgumentNullException();
-            throw new ArgumentException();
-
             if (arg == null)
             {
                 throw new ArgumentNullException(nameof(arg));

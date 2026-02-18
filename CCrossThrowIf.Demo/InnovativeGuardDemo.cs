@@ -21,8 +21,8 @@ public class InnovativeGuardDemo
         // 2. Ensure conditions (compile-time optimized)
         Console.WriteLine("2. Ensure conditions:");
         var numbers = new[] { 2, 4, 6, 8 };
-        Guard.Ensure.All(numbers, n => n % 2 == 0);
-        Guard.Ensure.Any(numbers, n => n > 5);
+        Guard.Ensure.All<int[], int>(numbers, n => n % 2 == 0);
+        Guard.Ensure.Any<int[], int>(numbers, n => n > 5);
         Guard.Ensure.Satisfies(42, n => n > 0 && n < 100);
         Console.WriteLine($"✓ All conditions ensured\n");
 
@@ -80,8 +80,6 @@ public class InnovativeGuardDemo
         // Try validation with result
         var validationResult = "test@example.com"
             .Validate()
-            .NotNull()
-            .NotEmpty()
             .Must(s => s.Contains('@'), "Must be an email")
             .TryValidate();
         
@@ -102,7 +100,7 @@ public class InnovativeGuardDemo
         
         // Stack-allocated batch validation
         Span<int> values = stackalloc int[] { 1, 2, 3, 4, 5 };
-        Guard.Performance.ValidateAll(values, n => n > 0);
+        Guard.Performance.ValidateAll<int>(values, n => n > 0);
         
         // Fast email validation without regex
         var isValidEmail = Guard.Performance.IsEmailFast("user@example.com");
@@ -137,12 +135,10 @@ public class InnovativeGuardDemo
 
     private async Task<UserRegistration> ValidateUserRegistration(UserRegistration registration)
     {
-        // Validate all fields in one go
-        var (email, password, phone) = Guard.Multiple.NotNullOrEmpty(
-            registration.Email,
-            registration.Password,
-            registration.PhoneNumber
-        );
+        // Validate all fields
+        var email = Guard.Against.NullOrEmpty(registration.Email);
+        var password = Guard.Against.NullOrEmpty(registration.Password);
+        var phone = Guard.Against.NullOrEmpty(registration.PhoneNumber);
 
         // Pattern validation
         Guard.Pattern.Email(email);

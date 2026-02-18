@@ -63,7 +63,7 @@ public static partial class Guard
         {
             ArgumentNullException.ThrowIfNull(value, paramName);
             
-            const string phonePattern = @"^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{4,6}$";
+            const string phonePattern = @"^[\+]?[0-9\s\-\(\)\.]{7,20}$";
             if (!Regex.IsMatch(value, phonePattern))
             {
                 throw new ArgumentException(
@@ -88,8 +88,12 @@ public static partial class Guard
             
             if (!Regex.IsMatch(value, pattern))
             {
+                if (message != null)
+                {
+                    throw new ArgumentException(message);
+                }
                 throw new ArgumentException(
-                    message ?? $"Value '{paramName}' does not match pattern '{pattern}'",
+                    $"Value '{paramName}' does not match pattern '{pattern}'",
                     paramName);
             }
             
