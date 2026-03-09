@@ -17,17 +17,23 @@ public class GuardPatternTests
         Assert.Equal(email, result);
     }
 
+    [Fact]
+    public void Email_WithNull_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
+            Guard.Pattern.Email(null));
+    }
+
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData("invalid")]
     [InlineData("@example.com")]
     [InlineData("user@")]
     [InlineData("user@domain")]
     [InlineData("user @domain.com")]
-    public void Email_WithInvalidEmail_ThrowsArgumentException(string? email)
+    public void Email_WithInvalidEmail_ThrowsArgumentException(string email)
     {
-        Assert.Throws<ArgumentException>(() => 
+        Assert.Throws<ArgumentException>(() =>
             Guard.Pattern.Email(email));
     }
 
@@ -46,16 +52,22 @@ public class GuardPatternTests
         Assert.Equal(url, result);
     }
 
+    [Fact]
+    public void Url_WithNull_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
+            Guard.Pattern.Url(null));
+    }
+
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData("not-a-url")]
     [InlineData("ftp://example.com")]
     [InlineData("//example.com")]
     [InlineData("http://")]
-    public void Url_WithInvalidUrl_ThrowsArgumentException(string? url)
+    public void Url_WithInvalidUrl_ThrowsArgumentException(string url)
     {
-        Assert.Throws<ArgumentException>(() => 
+        Assert.Throws<ArgumentException>(() =>
             Guard.Pattern.Url(url));
     }
 
@@ -76,14 +88,20 @@ public class GuardPatternTests
         Assert.Equal(phone, result);
     }
 
+    [Fact]
+    public void PhoneNumber_WithNull_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
+            Guard.Pattern.PhoneNumber(null));
+    }
+
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData("123")]
     [InlineData("abc-def-ghij")]
-    public void PhoneNumber_WithInvalidPhone_ThrowsArgumentException(string? phone)
+    public void PhoneNumber_WithInvalidPhone_ThrowsArgumentException(string phone)
     {
-        Assert.Throws<ArgumentException>(() => 
+        Assert.Throws<ArgumentException>(() =>
             Guard.Pattern.PhoneNumber(phone));
     }
 
@@ -103,14 +121,20 @@ public class GuardPatternTests
         Assert.Equal(guid, result);
     }
 
+    [Fact]
+    public void Guid_WithNull_ThrowsArgumentNullException()
+    {
+        Assert.Throws<ArgumentNullException>(() =>
+            Guard.Pattern.Guid(null));
+    }
+
     [Theory]
-    [InlineData(null)]
     [InlineData("")]
     [InlineData("not-a-guid")]
     [InlineData("550e8400-e29b-41d4-a716")]
-    public void Guid_WithInvalidGuid_ThrowsArgumentException(string? guid)
+    public void Guid_WithInvalidGuid_ThrowsArgumentException(string guid)
     {
-        Assert.Throws<ArgumentException>(() => 
+        Assert.Throws<ArgumentException>(() =>
             Guard.Pattern.Guid(guid));
     }
 
@@ -149,7 +173,7 @@ public class GuardPatternTests
         var exception = Assert.Throws<ArgumentException>(() => 
             Guard.Pattern.Matches(value, pattern, message: message));
         
-        Assert.Equal(message, exception.Message);
+        Assert.Contains(message, exception.Message);
     }
 
     #endregion

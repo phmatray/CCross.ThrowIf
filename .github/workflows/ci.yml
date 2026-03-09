@@ -14,9 +14,6 @@ jobs:
           dotnet-version: '9.0.x'
       - run: dotnet restore
       - run: dotnet build --no-restore -c Release
-      - run: dotnet test --no-build -c Release --no-restore || true
+      - run: dotnet test --no-build -c Release --no-restore
         env:
           DOTNET_CLI_TELEMETRY_OPTOUT: 1
-      - name: Show test results
-        if: always()
-        run: cat CCrossThrowIfTests/bin/Release/net9.0/TestResults/*.log 2>/dev/null || echo "No log found"
