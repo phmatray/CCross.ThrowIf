@@ -1,9 +1,8 @@
 name: CI
 on:
   push:
-    branches: [develop]
+    branches: [develop, dev]
   pull_request:
-    branches: [develop]
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
